@@ -1,0 +1,90 @@
+---
+title: "Data Cleaning In R"
+author: "Handerson Coq"
+date: '2022-04-24'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Performing some data cleaning tasks
+
+- Install some packages for simplifying the process
+
+```{r}
+install.packages("here")
+library(here) # makes referencing files easier
+```
+```{r}
+install.packages("skimr")
+library(skimr) # allows you to skim through data
+```
+```{r}
+install.packages("janitor")
+library(janitor) # contains functions for cleaning data
+```
+```{r}
+install.packages("dplyr")
+library(dplyr) # dplyr contains many functions for data cleaning
+```
+
+- Install some data to work with
+
+```{r}
+install.packages("palmerpenguins")
+```
+
+- Getting a comprehensive summary about the data using the skim_without_charts(), glimpse() and head() functions
+
+```{r}
+skim_without_charts(penguins)
+glimpse(penguins)
+head(penguins)
+```
+
+- Make use of pipes and select() to work with specific columns from the data
+
+```{r}
+penguins %>% 
+  select(species) # select just the species column
+```
+```{r}
+penguins %>% 
+  select(-species) # select all columns but the species column
+```
+
+- Renaming columns with the rename() function
+
+```{r}
+penguins %>% 
+  rename(bill_length = bill_length_mm) %>% 
+  rename(bill_depth = bill_depth_mm) %>% 
+  rename(body_mass = body_mass_g) %>% 
+  rename (flipper_length = flipper_length_mm)
+```
+
+- Make columns format consistent with the rename_with() function
+
+```{r}
+penguins %>% 
+  rename_with(toupper) %>%  # make column names all caps
+  rename_with(tolower) # make column names all lower cases
+```
+
+- make sure that column names are well formatted with the clean_names() function
+
+```{r}
+clean_names(penguins)
+```
+
+- Combining data in different columns using the unite() function
+
+```{r}
+# date_year <- bookings_df %>%
+# select(arrival_date_year, arrival_date_month) %>% 
+# unite(arrival_month_year, c("arrival_date_month", "arrival_date_year"), sep = " ")
+```
+
+
